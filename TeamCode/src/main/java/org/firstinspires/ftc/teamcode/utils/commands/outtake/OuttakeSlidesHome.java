@@ -18,7 +18,7 @@ public class OuttakeSlidesHome extends CommandBase {
         outtakeSlides.liftLeft.setPower(speed);
         outtakeSlides.liftRight.setPower(speed);
 
-        Globals.isHoming = true;
+        Globals.isHomingOuttake = true;
     }
 
     @Override

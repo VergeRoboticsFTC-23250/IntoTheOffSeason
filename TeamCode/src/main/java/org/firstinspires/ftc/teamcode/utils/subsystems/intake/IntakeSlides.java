@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.utils.subsystems.outtake;
+package org.firstinspires.ftc.teamcode.utils.subsystems.intake;
 
+import static org.firstinspires.ftc.teamcode.utils.Globals.isHomingIntake;
 import static org.firstinspires.ftc.teamcode.utils.Globals.isHomingOuttake;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -10,11 +11,11 @@ import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
 
 @Config
-public class OuttakeSlides extends SubsystemBase {
+public class IntakeSlides extends SubsystemBase {
 
-    public SolversMotorEx liftLeft, liftRight;
+    public SolversMotorEx extendoLeft, extendoRight;
     public RevTouchSensor touch;
-    public Motor.Encoder liftEncoder;
+    public Motor.Encoder extendoEncoder;
     public PIDFController controller;
 
     public static double p = 0;
@@ -23,32 +24,34 @@ public class OuttakeSlides extends SubsystemBase {
     public static double f = 0;
 
     public static double tolerance = 35;
+    public static double inPerTick = 0; // TODO
 
     public static double minPos = 0;
-    public static double specScore = 0;
-    public static double lowBucket = 0;
-    public static double highBucket = 0;
 
-    public OuttakeSlides(SolversMotorEx liftLeft, SolversMotorEx liftRight, RevTouchSensor touch, Motor.Encoder liftEncoder) {
-        this.liftLeft = liftLeft;
-        this.liftRight = liftRight; // right has encoder
+    public IntakeSlides(SolversMotorEx extendoLeft, SolversMotorEx extendoRight, RevTouchSensor touch, Motor.Encoder extendoEncoder) {
+        this.extendoLeft = extendoLeft;
+        this.extendoRight = extendoRight; // right has encoder
         this.touch = touch;
-        this.liftEncoder = liftEncoder;
+        this.extendoEncoder = extendoEncoder;
 
         controller = new PIDFController(p,i,d,f);
         controller.setTolerance(tolerance);
     }
 
     public void runPID() {
-        if (isHomingOuttake) return;
+        if (isHomingIntake) return;
 
         if (touch.isPressed() && controller.getSetPoint() == minPos) {
-            liftEncoder.reset();
+            extendoEncoder.reset();
         }
 
-        double power = controller.calculate(liftRight.getPosition());
+        double power = controller.calculate(extendoRight.getPosition());
 
-        liftLeft.setPower(power);
-        liftRight.setPower(power);
+        extendoLeft.setPower(power);
+        extendoRight.setPower(power);
+    }
+
+    public double ticksToInches(double ticks) {
+        return ticks * inPerTick;
     }
 }

@@ -20,7 +20,8 @@ public class Globals {
         TELEOP
     }
 
-    public static boolean isHoming = false;
+    public static boolean isHomingOuttake = false;
+    public static boolean isHomingIntake = false;
 
     public static void init(MatchState state, OpMode opmode) {
         matchState = state;
