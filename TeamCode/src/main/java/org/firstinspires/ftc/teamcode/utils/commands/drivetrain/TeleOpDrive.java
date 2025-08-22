@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.utils.commands.drivetrain;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandBase;
@@ -13,9 +14,9 @@ import org.firstinspires.ftc.teamcode.utils.Globals;
 import org.firstinspires.ftc.teamcode.utils.Robot;
 import org.firstinspires.ftc.teamcode.utils.subsystems.Drivetrain;
 
+@Config
 public class TeleOpDrive extends CommandBase {
-    private boolean slow;
-    private final double slowSpeed = 0.5;
+    private static final double slowSpeed = 0.5;
     private Drivetrain drivetrain;
 
     public TeleOpDrive(Drivetrain drivetrain, GamepadEx gamepad) {
@@ -29,7 +30,7 @@ public class TeleOpDrive extends CommandBase {
 
     @Override
     public void execute() {
-        slow = Globals.arvind.getButton(GamepadKeys.Button.LEFT_BUMPER);
+        boolean slow = Globals.arvind.getButton(GamepadKeys.Button.LEFT_BUMPER);
 
         if (slow) {
             drivetrain.follower.setTeleOpMovementVectors(
@@ -42,7 +43,6 @@ public class TeleOpDrive extends CommandBase {
                     -Globals.arvind.getLeftX(),
                     -Globals.arvind.getRightX(), true);
         }
-
         drivetrain.follower.update();
     }
 }

@@ -51,4 +51,8 @@ public class OuttakeSlides extends SubsystemBase {
         liftLeft.setPower(power);
         liftRight.setPower(power);
     }
+
+    public void setPos(double pos) {
+        controller.setSetPoint(pos);
+    }
 }

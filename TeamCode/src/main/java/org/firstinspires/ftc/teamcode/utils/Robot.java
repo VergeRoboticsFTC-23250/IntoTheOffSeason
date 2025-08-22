@@ -9,17 +9,23 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.seattlesolvers.solverslib.hardware.SimpleServo;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
-import com.seattlesolvers.solverslib.solversHardware.SolversServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utils.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeClaw;
+import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakePivot;
+import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeSlides;
+import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeTurret;
+import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeArm;
+import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeClaw;
 import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeSlides;
 
 /**
@@ -31,12 +37,20 @@ public class Robot {
     public Telemetry telemetry;
 
     public SolversMotorEx liftLeft, liftRight, extendoLeft, extendoRight;
-    public SolversServo outtakeArmLeft, outtakeArmRight, outtakePivot, outtakeClaw, intakeTurret, intakePivot, intakeWrist, intakeClaw;
+    public SimpleServo outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo, outtakeClawServo, intakeTurretServo, intakePivotServo, intakeWristServo, intakeClawServo;
     public Motor.Encoder liftEncoder, extendoEncoder;
     public RevTouchSensor liftTouch, extendoTouch;
+    public DigitalChannel pin0, pin1; // for the color rangefinder
+    // TODO run the configuration opmode first
 
     public Drivetrain drivetrain;
     public OuttakeSlides outtakeSlides;
+    public IntakeSlides intakeSlides;
+    public OuttakeArm outtakeArm;
+    public OuttakeClaw outtakeClaw;
+    public IntakeClaw intakeClaw;
+    public IntakeTurret intakeTurret;
+    public IntakePivot intakePivot;
 
     public Robot(OpMode opmode, Pose pose) {
         hMap = opmode.hardwareMap;
@@ -47,16 +61,20 @@ public class Robot {
         extendoLeft = new SolversMotorEx(hMap.get(DcMotorEx.class, "extendoLeft"), 0.01);
         extendoRight = new SolversMotorEx(hMap.get(DcMotorEx.class, "extendoRight"), 0.01);
 
-        outtakeArmLeft = new SolversServo(hMap.get(Servo.class, "outtakeArmLeft"), 0.01);
-        outtakeArmRight = new SolversServo(hMap.get(Servo.class, "outtakeArmRight"), 0.01);
-        outtakePivot = new SolversServo(hMap.get(Servo.class, "outtakePivot"), 0.01);
-        outtakeClaw = new SolversServo(hMap.get(Servo.class, "outtakeClaw"), 0.01);
-        intakeTurret = new SolversServo(hMap.get(Servo.class, "intakeTurret"), 0.01);
-        intakePivot = new SolversServo(hMap.get(Servo.class, "intakePivot"), 0.01);
-        intakeWrist = new SolversServo(hMap.get(Servo.class, "intakeWrist"), 0.01);
-        intakeClaw = new SolversServo(hMap.get(Servo.class, "intakeClaw"), 0.01);
+        outtakeArmLeftServo = new SimpleServo(hMap, "outtakeArmLeft", 0, 180, AngleUnit.DEGREES);
+        outtakeArmRightServo = new SimpleServo(hMap, "outtakeArmRight", 0, 180, AngleUnit.DEGREES);
+        outtakePivotServo = new SimpleServo(hMap, "outtakePivot", 0, 180, AngleUnit.DEGREES);
+        outtakeClawServo = new SimpleServo(hMap, "outtakeClaw", 0, 180, AngleUnit.DEGREES);
+        intakeTurretServo = new SimpleServo(hMap, "intakeTurret", 0, 180, AngleUnit.DEGREES);
+        intakePivotServo = new SimpleServo(hMap, "intakePivot", 0, 180, AngleUnit.DEGREES);
+        intakeWristServo = new SimpleServo(hMap, "intakeWrist", 0, 180, AngleUnit.DEGREES);
+        intakeClawServo = new SimpleServo(hMap, "intakeClaw", 0, 180, AngleUnit.DEGREES);
 
         liftTouch = hMap.get(RevTouchSensor.class, "liftTouch");
+        extendoTouch = hMap.get(RevTouchSensor.class, "extendoTouch");
+
+        pin0 = hMap.get(DigitalChannel.class, "digital0");
+        pin1 = hMap.get(DigitalChannel.class, "digital1");
 
         liftEncoder = new Motor(hMap, "liftRight").encoder;
 
@@ -82,9 +100,22 @@ public class Robot {
         extendoLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extendoRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        outtakeArmLeft.setDirection(Servo.Direction.REVERSE);
+        outtakeArmLeftServo.setInverted(true);
 
         drivetrain = new Drivetrain(new Follower(hMap, FConstants.class, LConstants.class), matchState);
         outtakeSlides = new OuttakeSlides(liftLeft, liftRight, liftTouch, liftEncoder);
+        intakeSlides = new IntakeSlides(extendoLeft, extendoRight, extendoTouch, extendoEncoder);
+        outtakeArm = new OuttakeArm(outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo);
+        outtakeClaw = new OuttakeClaw(outtakeClawServo);
+        intakeClaw = new IntakeClaw(intakeClawServo, intakeWristServo, pin0, pin1);
+        intakeTurret = new IntakeTurret(intakeTurretServo);
+        intakePivot = new IntakePivot(intakePivotServo);
+    }
+
+    // TODO run this in loop
+    public void update() {
+        intakeSlides.runPID();
+        outtakeSlides.runPID();
+        drivetrain.follower.update();
     }
 }

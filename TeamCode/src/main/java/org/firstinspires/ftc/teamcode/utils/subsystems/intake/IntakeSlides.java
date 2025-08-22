@@ -51,7 +51,19 @@ public class IntakeSlides extends SubsystemBase {
         extendoRight.setPower(power);
     }
 
+    public void setPos(double pos) {
+        controller.setSetPoint(pos);
+    }
+
     public double ticksToInches(double ticks) {
         return ticks * inPerTick;
+    }
+
+    public double inchesToTicks(double inches) {
+        return inches / inPerTick;
+    }
+
+    public double getPosInches() {
+        return ticksToInches(extendoRight.getPosition());
     }
 }
