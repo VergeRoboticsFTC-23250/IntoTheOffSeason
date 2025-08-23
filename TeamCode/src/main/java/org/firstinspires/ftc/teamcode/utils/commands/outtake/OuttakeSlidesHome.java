@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeSlides;
 
 public class OuttakeSlidesHome extends CommandBase {
     private OuttakeSlides outtakeSlides;
-    private double speed = -0.3;
+    private double speed = -0.5;
 
     public OuttakeSlidesHome(OuttakeSlides outtakeSlides) {
         this.outtakeSlides = outtakeSlides;

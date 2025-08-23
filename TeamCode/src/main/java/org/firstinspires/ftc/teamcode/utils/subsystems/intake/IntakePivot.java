@@ -6,11 +6,16 @@ import com.seattlesolvers.solverslib.hardware.SimpleServo;
 public class IntakePivot extends SubsystemBase {
     public SimpleServo intakePivot;
 
+    public static double pivotHome = 0;
+    public static double pivotPreIntake = 0.24;
+    public static double pivotIntake = 0;
+    public static double pivotScan = 0.52;
+
     public IntakePivot(SimpleServo intakePivot) {
         this.intakePivot = intakePivot;
     }
 
     public void setPivot(double degrees) {
-        intakePivot.turnToAngle(degrees);
+        intakePivot.setPosition(degrees);
     }
 }

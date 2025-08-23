@@ -23,7 +23,23 @@ public class Globals {
     public static boolean isHomingOuttake = false;
     public static boolean isHomingIntake = false;
 
-    public static void init(MatchState state, OpMode opmode) {
+    public static boolean isScanning = false;
+
+    public enum Alliance {
+        RED,
+        BLUE
+    }
+
+    public enum RobotState {
+        HOME,
+        INTAKE_SPEC,
+        INTAKE_SUB,
+        OUTTAKE_SPEC,
+        OUTTAKE_BUCKET,
+        CAMERA_SCAN
+    }
+
+    public static void init(MatchState state, OpMode opmode) { // run this BEFORE robot constructor
         matchState = state;
         hMap = opmode.hardwareMap;
         telemetry = opmode.telemetry;

@@ -28,6 +28,9 @@ public class ConfigureColorRangefinder extends LinearOpMode {
         crf.setPin1Digital(ColorRangefinder.DigitalMode.HSV, 55 / 360.0 * 255, 90 / 360.0 * 255); // yellow
         crf.setPin1DigitalMaxDistance(ColorRangefinder.DigitalMode.HSV, 20); // 20mm or closer requirement
 
+        telemetry.addData("success", true);
+        telemetry.update();
+
         waitForStart();
 
         stop();

@@ -2,24 +2,29 @@ package org.firstinspires.ftc.teamcode.opmodes.testing;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.seattlesolvers.solverslib.hardware.SimpleServo;
 
 @Config
+@TeleOp(name = "Test Op")
 public class TestOp extends OpMode {
-    Servo testRight, testLeft;
+    SimpleServo testRight, testLeft, testOther;
 
-    public static double rightPos = 0;
-    public static double leftPos = 0;
+    public static double rightPos = 0.0;
+    public static double leftPos = 0.0;
+    public static double otherPos = 0.0;
 
     public static boolean leftReverse = false;
 
     @Override
     public void init() {
-        testRight = hardwareMap.get(Servo.class, "outtakeArmRight");
-        testLeft = hardwareMap.get(Servo.class, "outtakeArmLeft");
+        testRight = new SimpleServo(hardwareMap, "outtakeArmRight", 0, 180);
+        testLeft = new SimpleServo(hardwareMap, "outtakeArmLeft", 0, 180);
+        testOther = new SimpleServo(hardwareMap, "outtakePivot", 0, 180);
 
         if (leftReverse) {
-            testLeft.setDirection(Servo.Direction.REVERSE);
+            testLeft.setInverted(true);
         }
     }
 
@@ -27,5 +32,10 @@ public class TestOp extends OpMode {
     public void loop() {
         testRight.setPosition(rightPos);
         testLeft.setPosition(leftPos);
+        testOther.setPosition(otherPos);
+
+        telemetry.addData("Right Position", rightPos);
+        telemetry.addData("Left Position", leftPos);
+        telemetry.addData("Other Position", otherPos);
     }
 }

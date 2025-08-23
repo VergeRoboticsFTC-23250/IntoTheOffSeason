@@ -8,8 +8,14 @@ public class IntakeClaw extends SubsystemBase {
     public SimpleServo intakeClaw, intakeWrist;
     public DigitalChannel pin0, pin1;
 
-    public static double open = 0;
-    public static double closed = 0;
+    public static double clawOpen = 0.29;
+    public static double clawClosed = 0.485;
+
+    public static double wristHome = 0.5;
+    public static double wristNeg45 = 0.38;
+    public static double wristNeg90 = 0.22;
+    public static double wristPos45 = 0.62;
+    public static double wristPos90 = 0.78;
 
     public enum Color {
         RED, BLUE, YELLOW, OTHER
@@ -44,10 +50,10 @@ public class IntakeClaw extends SubsystemBase {
     }
 
     public void open() {
-        intakeClaw.turnToAngle(open);
+        intakeClaw.setPosition(clawOpen);
     }
 
     public void close() {
-        intakeClaw.turnToAngle(closed);
+        intakeClaw.setPosition(clawClosed);
     }
 }
