@@ -11,7 +11,7 @@ public class ConfigureColorRangefinder extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         ColorRangefinder crf =
-                new ColorRangefinder(hardwareMap.get(RevColorSensorV3.class, "colorSensor"));
+                new ColorRangefinder(hardwareMap.get(RevColorSensorV3.class, "Color"));
 
         /*
         Using this example configuration, you can detect all three sample colors based on which pin is reading true:
@@ -28,8 +28,7 @@ public class ConfigureColorRangefinder extends LinearOpMode {
         crf.setPin1Digital(ColorRangefinder.DigitalMode.HSV, 55 / 360.0 * 255, 90 / 360.0 * 255); // yellow
         crf.setPin1DigitalMaxDistance(ColorRangefinder.DigitalMode.HSV, 20); // 20mm or closer requirement
 
-        telemetry.addData("success", true);
-        telemetry.update();
+        crf.setLedBrightness(1);
 
         waitForStart();
 

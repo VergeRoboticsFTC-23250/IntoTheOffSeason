@@ -13,7 +13,7 @@ public class RotateServo extends OpMode {
 
     public SimpleServo test;
     public Gamepad prevGamepad;
-    public static double actualMax = 355;
+    public static double actualMax = 324;
 
     /**
      * User-defined init method

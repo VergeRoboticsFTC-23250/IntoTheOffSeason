@@ -11,6 +11,8 @@ import com.seattlesolvers.solverslib.hardware.SimpleServo;
 public class TestOp extends OpMode {
     SimpleServo testRight, testLeft, testOther;
 
+    public static String name = "a";
+
     public static double rightPos = 0.0;
     public static double leftPos = 0.0;
     public static double otherPos = 0.0;
@@ -19,9 +21,9 @@ public class TestOp extends OpMode {
 
     @Override
     public void init() {
-        testRight = new SimpleServo(hardwareMap, "outtakeArmRight", 0, 180);
-        testLeft = new SimpleServo(hardwareMap, "outtakeArmLeft", 0, 180);
-        testOther = new SimpleServo(hardwareMap, "outtakePivot", 0, 180);
+        testRight = new SimpleServo(hardwareMap, name, 0, 180);
+        testLeft = new SimpleServo(hardwareMap, "b", 0, 180);
+        testOther = new SimpleServo(hardwareMap, "c", 0, 180);
 
         if (leftReverse) {
             testLeft.setInverted(true);
