@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.utils.vision;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.teamcode.utils.Globals;
@@ -30,7 +29,7 @@ public class Vision {
         if (Globals.isScanning) {
             latestResult = limelight.getLatestResult();
             light.setPosition(LIGHT_BRIGHTNESS);
-        } else {
+        } else if (light.getPosition() != 0){
             light.setPosition(0);
         }
     }

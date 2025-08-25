@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.teamcode.utils.subsystems.intake;
 
 import com.seattlesolvers.solverslib.command.SubsystemBase;
-import com.seattlesolvers.solverslib.hardware.SimpleServo;
+
+import org.firstinspires.ftc.teamcode.utils.TurretServo;
 
 public class IntakeTurret extends SubsystemBase {
-    public SimpleServo intakeTurret;
+    public TurretServo intakeTurret;
 
     public static double back = 0.76;
     public static double deposit = 0.95;
     public static double forward = 0.205;
 
-    public IntakeTurret(SimpleServo intakeTurret) {
+    public IntakeTurret(TurretServo intakeTurret) {
         this.intakeTurret = intakeTurret;
     }
 

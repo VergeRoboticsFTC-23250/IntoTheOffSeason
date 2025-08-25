@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.seattlesolvers.solverslib.hardware.SimpleServo;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
@@ -37,7 +38,8 @@ public class Robot {
     public Telemetry telemetry;
 
     public SolversMotorEx liftLeft, liftRight, extendoLeft, extendoRight;
-    public SimpleServo outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo, outtakeClawServo, intakeTurretServo, intakePivotServo, intakeWristServo, intakeClawServo;
+    public SimpleServo outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo, outtakeClawServo, intakePivotServo, intakeWristServo, intakeClawServo;
+    public TurretServo intakeTurretServo;
     public Motor.Encoder liftEncoder, extendoEncoder;
     public RevTouchSensor liftTouch, extendoTouch;
     public DigitalChannel pin0, pin1; // for the color rangefinder
@@ -65,10 +67,12 @@ public class Robot {
         outtakeArmRightServo = new SimpleServo(hMap, "outtakeArmRight", 0, 180, AngleUnit.DEGREES);
         outtakePivotServo = new SimpleServo(hMap, "outtakePivot", 0, 180, AngleUnit.DEGREES);
         outtakeClawServo = new SimpleServo(hMap, "outtakeClaw", 0, 180, AngleUnit.DEGREES);
-        intakeTurretServo = new SimpleServo(hMap, "intakeTurret", 0, 180, AngleUnit.DEGREES);
+        intakeTurretServo = new TurretServo(hMap, "intakeTurret", 0, 180, AngleUnit.DEGREES);
         intakePivotServo = new SimpleServo(hMap, "intakePivot", 0, 180, AngleUnit.DEGREES);
         intakeWristServo = new SimpleServo(hMap, "intakeWrist", 0, 180, AngleUnit.DEGREES);
         intakeClawServo = new SimpleServo(hMap, "intakeClaw", 0, 180, AngleUnit.DEGREES);
+
+        intakeTurretServo.setPwmRange(505, 2495);
 
         liftTouch = hMap.get(RevTouchSensor.class, "liftTouch");
         extendoTouch = hMap.get(RevTouchSensor.class, "extendoTouch");

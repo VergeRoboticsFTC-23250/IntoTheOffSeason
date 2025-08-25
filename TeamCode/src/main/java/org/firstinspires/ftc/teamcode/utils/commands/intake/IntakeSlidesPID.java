@@ -15,7 +15,7 @@ public class IntakeSlidesPID extends CommandBase {
 
     @Override
     public void initialize() {
-        intakeSlides.controller.setSetPoint(position);
+        intakeSlides.setPos(position);
     }
 
     @Override

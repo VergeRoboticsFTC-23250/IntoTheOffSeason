@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.utils.subsystems.intake;
 
 import static org.firstinspires.ftc.teamcode.utils.Globals.isHomingIntake;
-import static org.firstinspires.ftc.teamcode.utils.Globals.isHomingOuttake;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevTouchSensor;
@@ -27,6 +26,9 @@ public class IntakeSlides extends SubsystemBase {
     public static double inPerTick = 0; // TODO
 
     public static double minPos = 0;
+    public static double maxPos = 0;
+    public static double transfer = 0;
+    public static double half = 0;
 
     public IntakeSlides(SolversMotorEx extendoLeft, SolversMotorEx extendoRight, RevTouchSensor touch, Motor.Encoder extendoEncoder) {
         this.extendoLeft = extendoLeft;
