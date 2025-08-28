@@ -53,5 +53,7 @@ public class TestOp extends OpMode {
             testOther.setPosition(otherPos);
         }
 
+        telemetry.addData("power", power);
+
     }
 }

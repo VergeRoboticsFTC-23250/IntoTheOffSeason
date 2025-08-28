@@ -9,13 +9,14 @@ public class IntakeClaw extends SubsystemBase {
     public DigitalChannel pin0, pin1;
 
     public static double clawOpen = 0.29;
-    public static double clawClosed = 0.485;
+    public static double clawClosed = 0.465;
 
     public static double wristHome = 0.5;
     public static double wristNeg45 = 0.38;
     public static double wristNeg90 = 0.22;
     public static double wristPos45 = 0.62;
     public static double wristPos90 = 0.78;
+    public static double wristFlip = 1.0;
 
     public enum Color {
         RED, BLUE, YELLOW, OTHER
@@ -46,7 +47,7 @@ public class IntakeClaw extends SubsystemBase {
     }
 
     public void setWrist(double degrees) {
-        intakeWrist.turnToAngle(degrees);
+        intakeWrist.setPosition(degrees);
     }
 
     public void open() {

@@ -12,27 +12,26 @@ import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
 @Config
 public class IntakeSlides extends SubsystemBase {
 
-    public SolversMotorEx extendoLeft, extendoRight;
+    public SolversMotorEx extendo;
     public RevTouchSensor touch;
     public Motor.Encoder extendoEncoder;
     public PIDFController controller;
 
-    public static double p = 0;
+    public static double p = 0.0005;
     public static double i = 0;
-    public static double d = 0;
+    public static double d = 0.00000;
     public static double f = 0;
 
     public static double tolerance = 35;
-    public static double inPerTick = 0; // TODO
+    public static double ticksPerIn = 1801.96; // TODO
 
     public static double minPos = 0;
-    public static double maxPos = 0;
+    public static double maxPos = 38500;
     public static double transfer = 0;
-    public static double half = 0;
+    public static double half = 19000;
 
-    public IntakeSlides(SolversMotorEx extendoLeft, SolversMotorEx extendoRight, RevTouchSensor touch, Motor.Encoder extendoEncoder) {
-        this.extendoLeft = extendoLeft;
-        this.extendoRight = extendoRight; // right has encoder
+    public IntakeSlides(SolversMotorEx extendo, RevTouchSensor touch, Motor.Encoder extendoEncoder) {
+        this.extendo = extendo;
         this.touch = touch;
         this.extendoEncoder = extendoEncoder;
 
@@ -47,10 +46,9 @@ public class IntakeSlides extends SubsystemBase {
             extendoEncoder.reset();
         }
 
-        double power = controller.calculate(extendoRight.getPosition());
+        double power = controller.calculate(extendoEncoder.getPosition());
 
-        extendoLeft.setPower(power);
-        extendoRight.setPower(power);
+        extendo.setPower(power);
     }
 
     public void setPos(double pos) {
@@ -58,14 +56,22 @@ public class IntakeSlides extends SubsystemBase {
     }
 
     public double ticksToInches(double ticks) {
-        return ticks * inPerTick;
+        return ticks / ticksPerIn;
     }
 
-    public double inchesToTicks(double inches) {
-        return inches / inPerTick;
+    public int inchesToTicks(double inches) {
+        return (int) Math.round(inches * ticksPerIn);
     }
 
     public double getPosInches() {
-        return ticksToInches(extendoRight.getPosition());
+        return ticksToInches(extendo.getPosition());
+    }
+
+    public double getPosTicks() {
+        return extendo.getPosition();
+    }
+
+    public int getInverseKinPos(double theta) {
+        return (int) (extendo.getPosition() + Math.round(inchesToTicks(IntakeTurret.ARM_LENGTH_IN - (IntakeTurret.ARM_LENGTH_IN * Math.cos(Math.toRadians(theta))))));
     }
 }

@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.seattlesolvers.solverslib.hardware.SimpleServo;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
@@ -37,7 +36,7 @@ public class Robot {
     public HardwareMap hMap;
     public Telemetry telemetry;
 
-    public SolversMotorEx liftLeft, liftRight, extendoLeft, extendoRight;
+    public SolversMotorEx liftLeft, liftRight, extendo;
     public SimpleServo outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo, outtakeClawServo, intakePivotServo, intakeWristServo, intakeClawServo;
     public TurretServo intakeTurretServo;
     public Motor.Encoder liftEncoder, extendoEncoder;
@@ -60,8 +59,7 @@ public class Robot {
 
         liftLeft = new SolversMotorEx(hMap.get(DcMotorEx.class, "liftLeft"), 0.01);
         liftRight = new SolversMotorEx(hMap.get(DcMotorEx.class, "liftRight"), 0.01);
-        extendoLeft = new SolversMotorEx(hMap.get(DcMotorEx.class, "extendoLeft"), 0.01);
-        extendoRight = new SolversMotorEx(hMap.get(DcMotorEx.class, "extendoRight"), 0.01);
+        extendo = new SolversMotorEx(hMap.get(DcMotorEx.class, "extendo"), 0.01);
 
         outtakeArmLeftServo = new SimpleServo(hMap, "outtakeArmLeft", 0, 180, AngleUnit.DEGREES);
         outtakeArmRightServo = new SimpleServo(hMap, "outtakeArmRight", 0, 180, AngleUnit.DEGREES);
@@ -77,38 +75,39 @@ public class Robot {
         liftTouch = hMap.get(RevTouchSensor.class, "liftTouch");
         extendoTouch = hMap.get(RevTouchSensor.class, "extendoTouch");
 
-        pin0 = hMap.get(DigitalChannel.class, "digital0");
-        pin1 = hMap.get(DigitalChannel.class, "digital1");
+        pin0 = hMap.get(DigitalChannel.class, "pin0");
+        pin1 = hMap.get(DigitalChannel.class, "pin1");
 
-        liftEncoder = new Motor(hMap, "liftRight").encoder;
+        liftEncoder = new Motor(hMap, "liftEncoder").encoder; // might cause problems bc it's not on a motor
+        extendoEncoder = new Motor(hMap, "extendo").encoder;
 
         if (matchState.equals(Globals.MatchState.AUTONOMOUS)) {
             liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            extendoLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            extendoRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            extendo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        extendoLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        extendoRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        extendo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        liftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftEncoder.reset();
+        extendoEncoder.reset();
+
+        liftLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         liftRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        extendoLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        extendoRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        extendo.setDirection(DcMotorSimple.Direction.REVERSE);
 
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extendoLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extendoRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extendo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        outtakeArmLeftServo.setInverted(true);
+//        outtakeArmLeftServo.setInverted(true);
 
         drivetrain = new Drivetrain(new Follower(hMap, FConstants.class, LConstants.class), matchState);
         outtakeSlides = new OuttakeSlides(liftLeft, liftRight, liftTouch, liftEncoder);
-        intakeSlides = new IntakeSlides(extendoLeft, extendoRight, extendoTouch, extendoEncoder);
+        intakeSlides = new IntakeSlides(extendo, extendoTouch, extendoEncoder);
         outtakeArm = new OuttakeArm(outtakeArmLeftServo, outtakeArmRightServo, outtakePivotServo);
         outtakeClaw = new OuttakeClaw(outtakeClawServo);
         intakeClaw = new IntakeClaw(intakeClawServo, intakeWristServo, pin0, pin1);

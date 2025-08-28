@@ -14,8 +14,7 @@ public class IntakeSlidesHome extends CommandBase {
 
     @Override
     public void initialize() {
-        intakeSlides.extendoLeft.setPower(speed);
-        intakeSlides.extendoRight.setPower(speed);
+        intakeSlides.extendo.setPower(speed);
     }
 
     @Override
@@ -25,8 +24,7 @@ public class IntakeSlidesHome extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        intakeSlides.extendoLeft.setPower(0);
-        intakeSlides.extendoRight.setPower(0);
+        intakeSlides.extendo.setPower(0);
         intakeSlides.extendoEncoder.reset();
     }
 }

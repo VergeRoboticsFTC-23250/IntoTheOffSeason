@@ -38,6 +38,7 @@ public class IntakeSetState extends CommandBase {
                 break;
             case CAMERA_SCAN:
                 intakeClaw.open();
+                intakeClaw.setWrist(IntakeClaw.wristFlip);
                 intakePivot.setPivot(IntakePivot.pivotScan);
                 intakeTurret.setTurret(IntakeTurret.forward);
                 break;

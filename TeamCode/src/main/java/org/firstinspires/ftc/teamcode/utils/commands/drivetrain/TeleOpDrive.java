@@ -1,17 +1,11 @@
 package org.firstinspires.ftc.teamcode.utils.commands.drivetrain;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.pedropathing.follower.Follower;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandBase;
-import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utils.Globals;
-import org.firstinspires.ftc.teamcode.utils.Robot;
 import org.firstinspires.ftc.teamcode.utils.subsystems.Drivetrain;
 
 @Config
@@ -21,6 +15,8 @@ public class TeleOpDrive extends CommandBase {
 
     public TeleOpDrive(Drivetrain drivetrain, GamepadEx gamepad) {
         this.drivetrain = drivetrain;
+
+        addRequirements(drivetrain);
     }
 
     @Override

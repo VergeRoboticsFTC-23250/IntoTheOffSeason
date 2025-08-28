@@ -9,13 +9,15 @@ public class OuttakeArm extends SubsystemBase {
 
     public static double armHome = 0;
     public static double armOuttakeBucket = 0.65;
-    public static double armOuttakeSpec = 0.22;
-    public static double armIntakeSpec = 0.84;
+    public static double armOuttakeSpec = 0.24;
+    public static double armIntakeSpec = 0.85;
+    public static double armRegrip = 0.65;
 
     public static double pivotHome = 0;
     public static double pivotOuttakeBucket = 0.75;
-    public static double pivotOuttakeSpec = 0.15;
-    public static double pivotIntakeSpec = 0.2;
+    public static double pivotOuttakeSpec = 0.2;
+    public static double pivotIntakeSpec = 0.4;
+    public static double pivotRegrip = 0.4;
 
     public OuttakeArm(SimpleServo outtakeArmLeft, SimpleServo outtakeArmRight, SimpleServo outtakePivot) {
         this.outtakeArmLeft = outtakeArmLeft;

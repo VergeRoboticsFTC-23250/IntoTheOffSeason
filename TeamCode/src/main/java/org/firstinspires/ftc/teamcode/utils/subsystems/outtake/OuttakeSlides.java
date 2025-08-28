@@ -46,7 +46,7 @@ public class OuttakeSlides extends SubsystemBase {
             liftEncoder.reset();
         }
 
-        double power = controller.calculate(liftRight.getPosition());
+        double power = controller.calculate(liftEncoder.getPosition());
 
         liftLeft.setPower(power);
         liftRight.setPower(power);
