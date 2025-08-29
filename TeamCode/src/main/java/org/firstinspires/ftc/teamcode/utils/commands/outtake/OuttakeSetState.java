@@ -30,6 +30,10 @@ public class OuttakeSetState extends CommandBase {
                 outtakeArm.setArm(OuttakeArm.armOuttakeSpec);
                 outtakeArm.setPivot(OuttakeArm.pivotOuttakeSpec);
                 break;
+            case SPEC_REGRIP:
+                outtakeArm.setArm(OuttakeArm.armRegrip);
+                outtakeArm.setPivot(OuttakeArm.pivotRegrip);
+                outtakeClaw.close();
             case HOME:
             case CAMERA_SCAN:
             case INTAKE_SUB:

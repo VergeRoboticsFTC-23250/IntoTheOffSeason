@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmodes.testing;
 
-import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
+@Disabled
 @TeleOp(name = "Color Sensor Test (Digital)")
 public class ColorSensorDigitalTest extends OpMode {
     DigitalChannel pin0, pin1;

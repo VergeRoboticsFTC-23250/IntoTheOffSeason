@@ -19,7 +19,7 @@ public class IntakeSlides extends SubsystemBase {
 
     public static double p = 0.0005;
     public static double i = 0;
-    public static double d = 0.00000;
+    public static double d = 0.000025;
     public static double f = 0;
 
     public static double tolerance = 35;

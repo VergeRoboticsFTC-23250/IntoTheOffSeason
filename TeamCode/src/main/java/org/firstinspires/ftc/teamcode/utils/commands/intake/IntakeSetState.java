@@ -27,6 +27,7 @@ public class IntakeSetState extends CommandBase {
             case INTAKE_SPEC:
             case OUTTAKE_SPEC:
             case OUTTAKE_BUCKET:
+            case SPEC_REGRIP:
                 intakeClaw.open();
                 intakePivot.setPivot(IntakePivot.pivotHome);
                 intakeTurret.setTurret(IntakeTurret.forward);

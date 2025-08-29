@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.testing;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.localization.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.Robot;
 import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakePivot;
 import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeTurret;
 
+@Disabled
 @Config
 @TeleOp(name="PID Testing")
 public class PIDTesting extends CommandOpMode {

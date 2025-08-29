@@ -17,9 +17,9 @@ public class OuttakeSlides extends SubsystemBase {
     public Motor.Encoder liftEncoder;
     public PIDFController controller;
 
-    public static double p = 0;
+    public static double p = 0.0003;
     public static double i = 0;
-    public static double d = 0;
+    public static double d = 0.000010;
     public static double f = 0;
 
     public static double tolerance = 35;
@@ -46,7 +46,9 @@ public class OuttakeSlides extends SubsystemBase {
             liftEncoder.reset();
         }
 
-        double power = controller.calculate(liftEncoder.getPosition());
+        double raw = controller.calculate(liftEncoder.getPosition());
+
+        double power = Math.pow(raw, 2) * Math.signum(raw);
 
         liftLeft.setPower(power);
         liftRight.setPower(power);

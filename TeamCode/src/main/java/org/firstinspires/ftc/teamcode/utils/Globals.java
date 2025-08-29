@@ -36,6 +36,7 @@ public class Globals {
         INTAKE_SUB,
         OUTTAKE_SPEC,
         OUTTAKE_BUCKET,
+        SPEC_REGRIP,
         CAMERA_SCAN
     }
 

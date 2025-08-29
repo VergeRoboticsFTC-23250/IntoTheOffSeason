@@ -17,14 +17,14 @@ public class OuttakeClaw extends SubsystemBase {
     }
 
     public void open() {
-        outtakeClaw.turnToAngle(open);
+        outtakeClaw.setPosition(open);
     }
 
     public void close() {
-        outtakeClaw.turnToAngle(closed);
+        outtakeClaw.setPosition(closed);
     }
 
     public void loose() {
-        outtakeClaw.turnToAngle(loose);
+        outtakeClaw.setPosition(loose);
     }
 }

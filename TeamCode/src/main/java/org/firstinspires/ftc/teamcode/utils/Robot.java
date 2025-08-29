@@ -99,9 +99,9 @@ public class Robot {
 
         extendo.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extendo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        extendo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 //        outtakeArmLeftServo.setInverted(true);
 
@@ -120,5 +120,6 @@ public class Robot {
         intakeSlides.runPID();
         outtakeSlides.runPID();
         drivetrain.follower.update();
+        Globals.vivek.readButtons();
     }
 }
