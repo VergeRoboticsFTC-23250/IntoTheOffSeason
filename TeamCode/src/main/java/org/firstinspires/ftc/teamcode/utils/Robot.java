@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeSlides;
  * This is the Robot class. This will make your command-based robot code a lot smoother
  * and easier to understand.
  */
+
 public class Robot {
     public HardwareMap hMap;
     public Telemetry telemetry;

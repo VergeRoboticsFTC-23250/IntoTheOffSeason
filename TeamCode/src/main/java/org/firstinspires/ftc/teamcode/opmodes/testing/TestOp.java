@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.hardware.SimpleServo;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 
-import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeClaw;
+import org.firstinspires.ftc.teamcode.utils.subsystems.outtake.OuttakeArm;
 
 @Config
 @TeleOp(name = "Test Op")
@@ -14,7 +14,7 @@ public class TestOp extends OpMode {
     SimpleServo testRight, testLeft, testOther;
     Motor testMotor, testMotor2;
 
-    public static String name = "intakeWrist";
+    public static String name = "outtakePivot";
 
 
 
@@ -28,15 +28,16 @@ public class TestOp extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.cross) {
-            testOther.setPosition(IntakeClaw.wristHome);
-        } else if (gamepad1.square) {
-            testOther.setPosition(IntakeClaw.wristNeg45);
-        } else if (gamepad1.triangle) {
-            testOther.setPosition(IntakeClaw.wristPos45);
+            testOther.setPosition(OuttakeArm.pivotRegrip);
         } else if (gamepad1.circle) {
-            testOther.setPosition(IntakeClaw.wristPos90);
-        } else if (gamepad1.dpad_up) {
-            testOther.setPosition(IntakeClaw.wristFlip);
+            testOther.setPosition(OuttakeArm.pivotIntakeSpec);
+        }
+        if (gamepad1.right_bumper) {
+            testRight.setPosition(OuttakeArm.armIntakeSpec);
+            testLeft.setPosition(OuttakeArm.armIntakeSpec);
+        } else if (gamepad1.left_bumper) {
+            testRight.setPosition(OuttakeArm.armRegrip);
+            testLeft.setPosition(OuttakeArm.armRegrip);
         }
     }
 }

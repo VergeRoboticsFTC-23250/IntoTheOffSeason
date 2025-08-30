@@ -10,7 +10,7 @@ public class OuttakeClaw extends SubsystemBase {
 
     public static double open = 0;
     public static double closed = 0.2;
-    public static double loose = 0.15; // not done
+    public static double loose = 0.1; // not done
 
     public OuttakeClaw(SimpleServo outtakeClaw) {
         this.outtakeClaw = outtakeClaw;

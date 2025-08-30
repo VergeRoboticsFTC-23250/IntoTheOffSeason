@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Globals {
     public static Telemetry telemetry;
     public static HardwareMap hMap;
-    public static GamepadEx arvind;
+//    public static GamepadEx arvind;
     public static GamepadEx vivek;
 
     public static MatchState matchState;
@@ -44,12 +44,12 @@ public class Globals {
         matchState = state;
         hMap = opmode.hardwareMap;
         telemetry = opmode.telemetry;
-        arvind = new GamepadEx(opmode.gamepad1);
+//        arvind = new GamepadEx(opmode.gamepad1);
         vivek = new GamepadEx(opmode.gamepad2);
     }
 
     public static void update(OpMode opMode) {
-        arvind = new GamepadEx(opMode.gamepad1);
+//        arvind = new GamepadEx(opMode.gamepad1);
         vivek = new GamepadEx(opMode.gamepad2);
     }
 }

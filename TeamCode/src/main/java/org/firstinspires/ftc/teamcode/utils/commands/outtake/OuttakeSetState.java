@@ -26,14 +26,21 @@ public class OuttakeSetState extends CommandBase {
                 outtakeArm.setPivot(OuttakeArm.pivotOuttakeBucket);
                 break;
             case OUTTAKE_SPEC:
-                outtakeClaw.close();
-                outtakeArm.setArm(OuttakeArm.armOuttakeSpec);
-                outtakeArm.setPivot(OuttakeArm.pivotOuttakeSpec);
+                try {
+                    outtakeClaw.loose();
+                    outtakeArm.setArm(OuttakeArm.armRegrip);
+                    outtakeArm.setPivot(OuttakeArm.pivotRegrip);
+
+                    outtakeClaw.close();
+                    wait(500);
+                } catch (Exception e) {}
+
                 break;
             case SPEC_REGRIP:
+//                outtakeClaw.loose();
                 outtakeArm.setArm(OuttakeArm.armRegrip);
                 outtakeArm.setPivot(OuttakeArm.pivotRegrip);
-                outtakeClaw.close();
+                break;
             case HOME:
             case CAMERA_SCAN:
             case INTAKE_SUB:
@@ -43,5 +50,10 @@ public class OuttakeSetState extends CommandBase {
                 outtakeArm.setPivot(OuttakeArm.pivotIntakeSpec);
                 break;
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 }

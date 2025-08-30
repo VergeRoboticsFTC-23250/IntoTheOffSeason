@@ -3,47 +3,56 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
 
 import org.firstinspires.ftc.teamcode.utils.Globals;
 import org.firstinspires.ftc.teamcode.utils.Robot;
+import org.firstinspires.ftc.teamcode.utils.commands.SetState;
 
 @Config
 @TeleOp (name = "Solo TeleOp")
 public class SoloTeleOp extends CommandOpMode {
 
     public Robot robot;
+    public Gamepad old;
 
     @Override
     public void initialize() {
         Globals.init(Globals.MatchState.TELEOP, this);
-        robot = new Robot(this, new Pose(0,0,0));
+        robot = new Robot(this, new Pose(0, 0, 0));
+        CommandScheduler.getInstance().registerSubsystem(robot.drivetrain, robot.intakeSlides, robot.outtakeSlides, robot.intakeClaw, robot.intakeTurret, robot.intakePivot, robot.outtakeArm, robot.outtakeClaw);
 
-        robot.intakeSlides.extendoEncoder.reset();
+        old = new Gamepad();
 
-        register(robot.intakeSlides, robot.intakeTurret, robot.intakePivot, robot.outtakeSlides);
-
-//        robot.intakeSlides.setPos(0);
-//        robot.intakeTurret.setTurret(IntakeTurret.forward);
-//        robot.intakePivot.setPivot(IntakePivot.pivotPreIntake);
-
-
+        telemetry.update();
     }
 
     @Override
     public void run() {
-        robot.update();
+//        CommandScheduler.getInstance().run();
 
-        if (gamepad1.dpad_up) {
-            robot.outtakeSlides.setPos(30000);
+        robot.intakeSlides.runPID();
+        robot.outtakeSlides.runPID();
+        robot.drivetrain.follower.update();
+        Globals.vivek.readButtons();
+
+
+        if (gamepad1.square) {
+            schedule(
+                    new SetState(robot, Globals.RobotState.INTAKE_SPEC)
+            );
         }
-        if (gamepad1.dpad_down) {
-            robot.outtakeSlides.setPos(0);
+        if (gamepad1.triangle) {
+            schedule(
+                    new SetState(robot, Globals.RobotState.OUTTAKE_SPEC)
+            );
+
         }
 
-
-        telemetry.addData("pos", robot.outtakeSlides.liftEncoder.getPosition());
-        telemetry.addData("power", robot.outtakeSlides.liftLeft.getPower());
+        telemetry.addData("pos", robot.outtakeClaw.outtakeClaw.getPosition());
         telemetry.update();
+        old.copy(gamepad1);
     }
 }
