@@ -13,14 +13,14 @@ public class OuttakeArm extends SubsystemBase {
 
     public static double armHome = 0;
     public static double armOuttakeBucket = 0.65;
-    public static double armOuttakeSpec = 0.24;
-    public static double armIntakeSpec = 0.85;
+    public static double armOuttakeSubmersible = 0.24;
+    public static double armIntakeWall = 0.85;
     public static double armRegrip = 0.65;
 
     public static double pivotHome = 0;
     public static double pivotOuttakeBucket = 0.75;
-    public static double pivotOuttakeSpec = 0.2;
-    public static double pivotIntakeSpec = 0.9;
+    public static double pivotOuttakeSubmersible = 0.2;
+    public static double pivotIntakeWall = 0.9;
     public static double pivotRegrip = 0.9;
 
     public OuttakeArm(final HardwareMap hMap, final String armLeft, final String armRight, final String pivot){
@@ -31,9 +31,9 @@ public class OuttakeArm extends SubsystemBase {
 
     public InstantCommand intakeSpec(){
         return new InstantCommand(() -> {
-            armLeft.setPosition(armIntakeSpec);
-            armRight.setPosition(armIntakeSpec);
-            pivot.setPosition(pivotIntakeSpec);
+            armLeft.setPosition(armIntakeWall);
+            armRight.setPosition(armIntakeWall);
+            pivot.setPosition(pivotIntakeWall);
         });
     }
 
@@ -42,6 +42,14 @@ public class OuttakeArm extends SubsystemBase {
             armLeft.setPosition(armRegrip);
             armRight.setPosition(armRegrip);
             pivot.setPosition(pivotRegrip);
+        });
+    }
+
+    public InstantCommand submersible(){
+        return new InstantCommand(() -> {
+            armLeft.setPosition(armOuttakeSubmersible);
+            armRight.setPosition(armOuttakeSubmersible);
+            pivot.setPosition(pivotOuttakeSubmersible);
         });
     }
 }

@@ -2,10 +2,14 @@ package org.firstinspires.ftc.teamcode.utils.subsystems.outtake;
 
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.seattlesolvers.solverslib.command.Command;
+import com.seattlesolvers.solverslib.command.FunctionalCommand;
 import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+import com.seattlesolvers.solverslib.command.WaitCommand;
+import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 import com.seattlesolvers.solverslib.controller.PIDFController;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotorEx;
@@ -21,12 +25,11 @@ public class OuttakeSlides extends SubsystemBase {
     public static double d = 0.000010;
     public static double f = 0;
 
-    public static double tolerance = 35;
+    public static double tolerance = 5000;
 
-    public static double minPos = 0;
-    public static double specScore = 30500;
-    public static double lowBucket = 0;
-    public static double highBucket = 0;
+    public static int home = 0;
+    public static int submersible = 30500;
+    public static int bucket = 0;
 
     public static boolean isHoming;
 
@@ -58,7 +61,7 @@ public class OuttakeSlides extends SubsystemBase {
     private void runPID(){
         if (isHoming) return;
 
-        if (touch.isPressed() && controller.getSetPoint() == minPos) {
+        if (touch.isPressed() && controller.getSetPoint() == home) {
             encoder.reset();
         }
 
@@ -70,7 +73,19 @@ public class OuttakeSlides extends SubsystemBase {
         rightMotor.setPower(power);
     }
 
-    public InstantCommand setPos(int pos){
-        return new InstantCommand(() -> controller.setSetPoint(pos));
+    public Command runToPosition(int pos){
+        return new InstantCommand(() -> controller.setSetPoint(pos)).andThen(new WaitUntilCommand(() -> controller.getPositionError() <= tolerance));
+    }
+
+    public Command home(){
+        return runToPosition(home);
+    }
+
+    public Command submersible(){
+        return runToPosition(submersible);
+    }
+
+    public Command bucket(){
+        return runToPosition(bucket);
     }
 }

@@ -5,6 +5,7 @@ import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
+import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.utils.Butterfly;
 
@@ -24,15 +25,18 @@ public class TeleOp extends CommandOpMode {
         if(gamepad1.cross){
             schedule(new SequentialCommandGroup(
                     robot.outtakeArm.intakeSpec(),
-                    robot.outtakeClaw.open()
+                    robot.outtakeClaw.open(),
+                    robot.outtakeSlides.home()
             ));
         }
 
         if(gamepad1.triangle){
             schedule(new SequentialCommandGroup(
-                    robot.outtakeArm.regrip(),
                     robot.outtakeClaw.closeLoose(),
-                    robot.outtakeSlides.setPos(5000)
+                    robot.outtakeArm.regrip(),
+                    robot.outtakeSlides.submersible(),
+                    robot.outtakeClaw.closeFirm(),
+                    robot.outtakeArm.submersible()
             ));
         }
         robot.run();
