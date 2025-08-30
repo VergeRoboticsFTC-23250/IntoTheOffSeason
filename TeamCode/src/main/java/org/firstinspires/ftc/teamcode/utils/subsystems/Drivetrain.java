@@ -9,7 +9,6 @@ import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
-import org.firstinspires.ftc.teamcode.utils.Paths;
 
 public class Drivetrain extends SubsystemBase {
     public Follower follower;
@@ -18,22 +17,19 @@ public class Drivetrain extends SubsystemBase {
         follower = new Follower(hMap, FConstants.class, LConstants.class);
     }
 
-    @Override
-    public void periodic() {
-        follower.update();
-    }
+//    @Override
+//    public void periodic() {
+//        follower.update();
+//    }
 
-    public Command follow(Path path, final boolean holdEnd){
-        return new FollowPathCommand(
-                follower,
-                Paths.fiveSpec[0], holdEnd
-        );
-    }
+//    public Command follow(Path path, final boolean holdEnd){
+//        return new FollowPathCommand(
+//                follower,
+//                path, holdEnd
+//        );
+//    }
 
     public Command follow(Path path){
-        return new FollowPathCommand(
-                follower,
-                Paths.fiveSpec[0], true
-        );
+        return new FollowPathCommand(follower, path,true);
     }
 }
