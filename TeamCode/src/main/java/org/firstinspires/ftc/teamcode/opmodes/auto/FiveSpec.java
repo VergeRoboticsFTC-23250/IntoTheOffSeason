@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.utils.Butterfly;
@@ -31,5 +32,6 @@ public class FiveSpec extends CommandOpMode {
     @Override
     public void run() {
         robot.drivetrain.follower.update();
+        CommandScheduler.getInstance().run();
     }
 }
