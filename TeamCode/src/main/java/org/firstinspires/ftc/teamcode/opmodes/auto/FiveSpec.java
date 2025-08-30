@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.utils.Butterfly;
 import org.firstinspires.ftc.teamcode.utils.Commands;
 import org.firstinspires.ftc.teamcode.utils.Globals;
 import org.firstinspires.ftc.teamcode.utils.Paths;
+import org.firstinspires.ftc.teamcode.utils.commands.FollowPath;
 
 @Autonomous(name = "FiveSpec")
 public class FiveSpec extends CommandOpMode {
@@ -23,7 +24,7 @@ public class FiveSpec extends CommandOpMode {
 
         schedule(new SequentialCommandGroup(
                 //Commands.outtakeSub
-                robot.drivetrain.follow(Paths.fiveSpec[0])
+                new FollowPath(robot.drivetrain.follower, Paths.fiveSpec[0])
         ));
     }
 

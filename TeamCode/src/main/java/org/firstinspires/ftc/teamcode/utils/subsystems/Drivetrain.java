@@ -22,8 +22,4 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         follower.update();
     }
-
-    public Command follow(Path path){
-        return new InstantCommand(() -> follower.followPath(path, true)).andThen(new WaitUntilCommand(() -> !follower.isBusy()) );
-    }
 }
