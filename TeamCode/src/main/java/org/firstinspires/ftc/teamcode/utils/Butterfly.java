@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.Robot;
 
+import org.firstinspires.ftc.teamcode.utils.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeClaw;
 import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakePivot;
 import org.firstinspires.ftc.teamcode.utils.subsystems.intake.IntakeSlides;
@@ -22,6 +23,9 @@ public class Butterfly extends Robot {
     public IntakeClaw intakeClaw;
     public IntakePivot intakePivot;
     public IntakeTurret intakeTurret;
+
+    public Drivetrain drivetrain;
+
     public Butterfly(HardwareMap hMap, Globals.OpModeType type) {
         this.hMap = hMap;
         init();
@@ -42,6 +46,8 @@ public class Butterfly extends Robot {
         intakePivot = new IntakePivot(hMap, "intakePivot");
         intakeTurret = new IntakeTurret(hMap, "intakeTurret");
 
+        drivetrain = new Drivetrain(hMap);
+
         register(outtakeArm);
         register(outtakeClaw);
         register(outtakeSlides);
@@ -49,6 +55,8 @@ public class Butterfly extends Robot {
         register(intakeSlides);
         register(intakeClaw);
         register(intakePivot);
+
+        register(drivetrain);
 
         schedule(new ParallelCommandGroup(
                 this.intakeSlides.home(),
