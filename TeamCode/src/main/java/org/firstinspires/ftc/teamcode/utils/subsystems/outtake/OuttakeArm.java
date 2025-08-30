@@ -29,7 +29,7 @@ public class OuttakeArm extends SubsystemBase {
         this.pivot = new SimpleServo(hMap, pivot, 0, 180, AngleUnit.DEGREES);
     }
 
-    public InstantCommand intakeSpec(){
+    public InstantCommand intakeWall(){
         return new InstantCommand(() -> {
             armLeft.setPosition(armIntakeWall);
             armRight.setPosition(armIntakeWall);

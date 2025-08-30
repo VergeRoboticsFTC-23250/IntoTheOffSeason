@@ -36,7 +36,7 @@ public class OuttakeSlides extends SubsystemBase {
 
     public static boolean initialized = false;
 
-    public OuttakeSlides(HardwareMap hMap, final String leftMotor, final String rightMotor, final String touch, final String encoder) {
+    public OuttakeSlides(final HardwareMap hMap, final String leftMotor, final String rightMotor, final String touch, final String encoder) {
         this.leftMotor = new SolversMotorEx(hMap.get(DcMotorEx.class, leftMotor), 0.01);
         this.leftMotor.setDirection(DcMotorEx.Direction.FORWARD);
         this.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

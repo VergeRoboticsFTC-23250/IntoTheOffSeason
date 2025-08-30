@@ -8,6 +8,7 @@ import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.utils.Butterfly;
+import org.firstinspires.ftc.teamcode.utils.Commands;
 import org.firstinspires.ftc.teamcode.utils.Globals;
 
 @Config
@@ -19,35 +20,15 @@ public class TeleOp extends CommandOpMode {
     @Override
     public void initialize() {
         robot = new Butterfly(hardwareMap, Globals.OpModeType.TELEOP);
+        Commands.init(robot);
     }
 
     @Override
     public void run() {
-//        if(gamepad1.cross){
-//            schedule(new SequentialCommandGroup(
-//                    robot.outtakeArm.intakeSpec(),
-//                    robot.outtakeClaw.open(),
-//                    robot.outtakeSlides.home()
-//            ));
-//        }
-//
-//        if(gamepad1.triangle){
-//            schedule(new SequentialCommandGroup(
-//                    robot.outtakeClaw.closeLoose(),
-//                    robot.outtakeArm.regrip(),
-//                    robot.outtakeSlides.submersible(),
-//                    robot.outtakeClaw.closeFirm(),
-//                    robot.outtakeArm.submersible()
-//            ));
-//        }
+        if(gamepad1.cross) schedule(Commands.intakeWall);
 
-        if(gamepad1.cross){
-            schedule(robot.intakeSlides.home());
-        }
+        if(gamepad1.triangle) schedule(Commands.outtakeSub);
 
-        if(gamepad1.triangle){
-            schedule(robot.intakeSlides.half());
-        }
         robot.run();
     }
 }

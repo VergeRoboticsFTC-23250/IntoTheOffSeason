@@ -36,13 +36,11 @@ public class Globals {
     }
 
     public enum RobotState {
-        HOME,
-        INTAKE_SPEC,
+        INTAKE_WALL,
         INTAKE_SUB,
-        OUTTAKE_SPEC,
+        OUTTAKE_SUB,
         OUTTAKE_BUCKET,
-        SPEC_REGRIP,
-        CAMERA_SCAN
+        SCAN
     }
 
     public static void init(Globals.OpModeType opModeType, OpMode opmode) { // run this BEFORE robot constructor
