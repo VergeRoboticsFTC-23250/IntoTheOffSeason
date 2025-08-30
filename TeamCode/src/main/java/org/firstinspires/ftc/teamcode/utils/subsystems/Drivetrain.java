@@ -4,8 +4,9 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.pathgen.Path;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.Command;
+import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
-import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
+import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
@@ -17,19 +18,12 @@ public class Drivetrain extends SubsystemBase {
         follower = new Follower(hMap, FConstants.class, LConstants.class);
     }
 
-//    @Override
-//    public void periodic() {
-//        follower.update();
-//    }
-
-//    public Command follow(Path path, final boolean holdEnd){
-//        return new FollowPathCommand(
-//                follower,
-//                path, holdEnd
-//        );
-//    }
+    @Override
+    public void periodic() {
+        follower.update();
+    }
 
     public Command follow(Path path){
-        return new FollowPathCommand(follower, path,true);
+        return new InstantCommand(() -> follower.followPath(path, true)).andThen(new WaitUntilCommand(() -> !follower.isBusy()) );
     }
 }

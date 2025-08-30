@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
-import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.utils.Butterfly;
 import org.firstinspires.ftc.teamcode.utils.Commands;
@@ -17,19 +17,18 @@ public class FiveSpec extends CommandOpMode {
     public void initialize() {
         Globals.init(Globals.OpModeType.AUTONOMOUS, this);
         robot = new Butterfly(hardwareMap, Globals.OpModeType.AUTONOMOUS);
-        register(robot.drivetrain);
         Commands.init(robot);
         robot.drivetrain.follower.setStartingPose(Paths.startPose);
         Paths.init();
 
-        schedule(new InstantCommand(() -> {
-            robot.drivetrain.follower.followPath(Paths.fiveSpec[0], true);
-        }));
+        schedule(new SequentialCommandGroup(
+                //Commands.outtakeSub
+                robot.drivetrain.follow(Paths.fiveSpec[0])
+        ));
     }
 
     @Override
     public void run() {
         robot.drivetrain.follower.update();
-        robot.run();
     }
 }
