@@ -25,7 +25,7 @@ public class OuttakeSlides extends SubsystemBase {
     public static double tolerance = 35;
 
     public static double minPos = 0;
-    public static double specScore = 0;
+    public static double specScore = 30500;
     public static double lowBucket = 0;
     public static double highBucket = 0;
 

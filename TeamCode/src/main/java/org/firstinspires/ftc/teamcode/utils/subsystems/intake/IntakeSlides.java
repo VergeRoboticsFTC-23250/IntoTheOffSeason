@@ -26,7 +26,7 @@ public class IntakeSlides extends SubsystemBase {
     public static double ticksPerIn = 1801.96; // TODO
 
     public static double minPos = 0;
-    public static double maxPos = 38500;
+    public static double maxPos = 36500;
     public static double transfer = 0;
     public static double half = 19000;
 

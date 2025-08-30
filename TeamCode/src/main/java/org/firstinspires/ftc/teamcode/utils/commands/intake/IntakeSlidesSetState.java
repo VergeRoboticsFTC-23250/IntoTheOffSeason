@@ -25,6 +25,8 @@ public class IntakeSlidesSetState extends CommandBase {
                 intakeSlides.setPos(IntakeSlides.minPos);
                 break;
             case CAMERA_SCAN:
+                intakeSlides.setPos(IntakeSlides.half);
+                break;
             case INTAKE_SUB:
                 intakeSlides.setPos(IntakeSlides.maxPos);
                 break;

@@ -25,8 +25,10 @@ public class OuttakeSlidesSetState extends CommandBase {
                 break;
             case OUTTAKE_BUCKET:
                 outtakeSlides.setPos(OuttakeSlides.highBucket);
+                break;
             case OUTTAKE_SPEC:
                 outtakeSlides.setPos(OuttakeSlides.specScore);
+                break;
         }
     }
 
