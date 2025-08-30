@@ -29,9 +29,17 @@ public class FiveSpec extends CommandOpMode {
         ));
     }
 
+    long lastSchedulerTime = 0;
+    long schedulerInterval = 100;
+
     @Override
     public void run() {
         robot.drivetrain.follower.update();
-        CommandScheduler.getInstance().run();
+
+        long now = System.currentTimeMillis();
+        if(now - lastSchedulerTime >= schedulerInterval) {
+            CommandScheduler.getInstance().run();
+            lastSchedulerTime = now;
+        }
     }
 }

@@ -18,8 +18,8 @@ public class Drivetrain extends SubsystemBase {
         follower = new Follower(hMap, FConstants.class, LConstants.class);
     }
 
-    @Override
-    public void periodic() {
-        follower.update();
-    }
+//    @Override
+//    public void periodic() {
+//        follower.update();
+//    }
 }
