@@ -22,14 +22,8 @@ public class FiveSpec extends CommandOpMode {
 
         schedule(
                 new SequentialCommandGroup(
-                    new FollowPathCommand(
-                            robot.drivetrain.follower,
-                            Paths.fiveSpec[0], true
-                    ),
-                    new FollowPathCommand(
-                            robot.drivetrain.follower,
-                            Paths.fiveSpec[1], true
-                    )
+                    robot.drivetrain.follow(Paths.fiveSpec[0]),
+                        robot.drivetrain.follow(Paths.fiveSpec[1])
                 )
         );
     }
