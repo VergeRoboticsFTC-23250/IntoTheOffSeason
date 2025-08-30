@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.utils.subsystems.outtake;
 
-import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.hardware.SimpleServo;
 
-@Config
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 public class OuttakeArm extends SubsystemBase {
 
-    public SimpleServo outtakeArmLeft, outtakeArmRight, outtakePivot;
+    public SimpleServo armLeft, armRight, pivot;
 
     public static double armHome = 0;
     public static double armOuttakeBucket = 0.65;
@@ -21,18 +23,25 @@ public class OuttakeArm extends SubsystemBase {
     public static double pivotIntakeSpec = 0.9;
     public static double pivotRegrip = 0.9;
 
-    public OuttakeArm(SimpleServo outtakeArmLeft, SimpleServo outtakeArmRight, SimpleServo outtakePivot) {
-        this.outtakeArmLeft = outtakeArmLeft;
-        this.outtakeArmRight = outtakeArmRight;
-        this.outtakePivot = outtakePivot;
+    public OuttakeArm(final HardwareMap hMap, final String armLeft, final String armRight, final String pivot){
+        this.armLeft = new SimpleServo(hMap, armLeft, 0, 180, AngleUnit.DEGREES);
+        this.armRight = new SimpleServo(hMap, armRight, 0, 180, AngleUnit.DEGREES);
+        this.pivot = new SimpleServo(hMap, pivot, 0, 180, AngleUnit.DEGREES);
     }
 
-    public void setArm(double pos) {
-        outtakeArmLeft.setPosition(pos);
-        outtakeArmRight.setPosition(pos);
+    public InstantCommand intakeSpec(){
+        return new InstantCommand(() -> {
+            armLeft.setPosition(armIntakeSpec);
+            armRight.setPosition(armIntakeSpec);
+            pivot.setPosition(pivotIntakeSpec);
+        });
     }
 
-    public void setPivot(double pos) {
-        outtakePivot.setPosition(pos);
+    public InstantCommand regrip(){
+        return new InstantCommand(() -> {
+            armLeft.setPosition(armRegrip);
+            armRight.setPosition(armRegrip);
+            pivot.setPosition(pivotRegrip);
+        });
     }
 }
