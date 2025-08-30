@@ -20,7 +20,7 @@ public class LimelightTest extends OpMode {
      */
     @Override
     public void init() {
-        Globals.init(Globals.MatchState.TELEOP, this);
+        Globals.init(Globals.OpModeType.TELEOP, this);
         vision = new Vision();
 
 

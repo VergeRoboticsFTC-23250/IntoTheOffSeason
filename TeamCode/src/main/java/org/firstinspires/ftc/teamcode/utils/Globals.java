@@ -14,10 +14,15 @@ public class Globals {
 //    public static GamepadEx arvind;
     public static GamepadEx vivek;
 
-    public static MatchState matchState;
-    public enum MatchState {
+    public enum OpModeType {
         AUTONOMOUS,
         TELEOP
+    }
+
+    public static OpModeType opModeType;
+
+    public enum Color {
+        RED, BLUE, YELLOW, OTHER
     }
 
     public static boolean isHomingOuttake = false;
@@ -40,8 +45,8 @@ public class Globals {
         CAMERA_SCAN
     }
 
-    public static void init(MatchState state, OpMode opmode) { // run this BEFORE robot constructor
-        matchState = state;
+    public static void init(Globals.OpModeType opModeType, OpMode opmode) { // run this BEFORE robot constructor
+        Globals.opModeType = opModeType;
         hMap = opmode.hardwareMap;
         telemetry = opmode.telemetry;
 //        arvind = new GamepadEx(opmode.gamepad1);
