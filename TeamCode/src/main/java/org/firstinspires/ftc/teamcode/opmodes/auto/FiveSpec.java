@@ -24,13 +24,13 @@ public class FiveSpec extends CommandOpMode {
         Paths.init();
 
         schedule(new SequentialCommandGroup(
-                //Commands.outtakeSub
+                Commands.outtakeSub,
                 new FollowPath(robot.drivetrain.follower, Paths.fiveSpec[0])
         ));
     }
 
     long lastSchedulerTime = 0;
-    long schedulerInterval = 100;
+    long schedulerInterval = 50;
 
     @Override
     public void run() {
