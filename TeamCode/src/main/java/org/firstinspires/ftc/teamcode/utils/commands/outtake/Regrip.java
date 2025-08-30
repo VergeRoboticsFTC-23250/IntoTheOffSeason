@@ -11,9 +11,11 @@ import org.firstinspires.ftc.teamcode.utils.commands.SetState;
 public class Regrip extends SequentialCommandGroup {
     public Regrip(Robot robot) {
         addCommands(
-                new SetState(robot, Globals.RobotState.SPEC_REGRIP),
-                new WaitCommand(500),
-                new InstantCommand(() -> robot.outtakeClaw.close()
+                new SequentialCommandGroup(
+                        new SetState(robot, Globals.RobotState.SPEC_REGRIP),
+                        new WaitCommand(2000),
+                        new InstantCommand(() -> robot.outtakeClaw.close()
+                )
         ));
     }
 }

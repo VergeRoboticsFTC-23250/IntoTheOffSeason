@@ -26,18 +26,12 @@ public class OuttakeSetState extends CommandBase {
                 outtakeArm.setPivot(OuttakeArm.pivotOuttakeBucket);
                 break;
             case OUTTAKE_SPEC:
-                try {
-                    outtakeClaw.loose();
-                    outtakeArm.setArm(OuttakeArm.armRegrip);
-                    outtakeArm.setPivot(OuttakeArm.pivotRegrip);
-
-                    outtakeClaw.close();
-                    wait(500);
-                } catch (Exception e) {}
-
+                outtakeClaw.close();
+                outtakeArm.setArm(OuttakeArm.armOuttakeSpec);
+                outtakeArm.setPivot(OuttakeArm.armOuttakeSpec);
                 break;
             case SPEC_REGRIP:
-//                outtakeClaw.loose();
+                outtakeClaw.loose();
                 outtakeArm.setArm(OuttakeArm.armRegrip);
                 outtakeArm.setPivot(OuttakeArm.pivotRegrip);
                 break;

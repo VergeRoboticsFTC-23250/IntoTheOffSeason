@@ -10,6 +10,7 @@ import com.seattlesolvers.solverslib.command.CommandScheduler;
 import org.firstinspires.ftc.teamcode.utils.Globals;
 import org.firstinspires.ftc.teamcode.utils.Robot;
 import org.firstinspires.ftc.teamcode.utils.commands.SetState;
+import org.firstinspires.ftc.teamcode.utils.commands.outtake.Regrip;
 
 @Config
 @TeleOp (name = "Solo TeleOp")
@@ -46,7 +47,7 @@ public class SoloTeleOp extends CommandOpMode {
         }
         if (gamepad1.triangle) {
             schedule(
-                    new SetState(robot, Globals.RobotState.OUTTAKE_SPEC)
+                    new Regrip(robot)
             );
 
         }
