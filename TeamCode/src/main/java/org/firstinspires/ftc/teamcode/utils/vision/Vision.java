@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.teamcode.utils.Globals;
 
+import java.util.List;
+
 public class Vision {
     public Limelight3A limelight;
     public LLResult latestResult;
@@ -44,5 +46,13 @@ public class Vision {
         double x = hypot * Math.tan(Math.toRadians(latestResult.getTx()));
 
         return new double[]{x, y};
+    }
+
+    public List<Double> getTargetCorners() {
+        if (latestResult == null || !latestResult.isValid() || latestResult.getDetectorResults().isEmpty() || latestResult.getDetectorResults().get(0).getTargetCorners().isEmpty()) {
+            return null;
+        } else {
+            return latestResult.getDetectorResults().get(0).getTargetCorners().get(0);
+        }
     }
 }
