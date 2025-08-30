@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.utils.Globals;
 import org.firstinspires.ftc.teamcode.utils.vision.Vision;
 
-@TeleOp(name = "Limelight Test")
-public class LimelightTest extends OpMode {
+@TeleOp
+public class OrientationTest extends OpMode {
 
-    public Vision vision;
+    Vision vision;
 
     /**
      * User-defined init method
@@ -20,8 +20,6 @@ public class LimelightTest extends OpMode {
     public void init() {
         Globals.init(Globals.OpModeType.TELEOP, this);
         vision = new Vision();
-
-
     }
 
     /**
@@ -37,11 +35,9 @@ public class LimelightTest extends OpMode {
         vision.update();
         telemetry.addData("Target Visible", vision.isTargetVisible());
         if (vision.isTargetVisible()) {
-            if (vision.getTargetCorners() != null)
-            telemetry.addData("corner 1", vision.getTargetCorners().get(0));
-            telemetry.addData("corner 2", vision.getTargetCorners().get(1));
-            telemetry.addData("corner 3", vision.getTargetCorners().get(2));
-            telemetry.addData("corner 4", vision.getTargetCorners().get(3));
+            double[] targetPos = vision.getTargetPos();
+            telemetry.addData("Target X", targetPos[0]);
+            telemetry.addData("Target Y", targetPos[1]);
         } else {
             telemetry.addData("Target X", "N/A");
             telemetry.addData("Target Y", "N/A");
